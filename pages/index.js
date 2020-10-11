@@ -1,59 +1,51 @@
-import styles from '../styles/Home.module.css'
+import Nav from '../components/nav'
+import { faReceipt, faFolderOpen} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export default function Home() {
+export default function IndexPage() {
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+    <div>
+      <div className="lg:container lg:mx-auto">
+        <Nav />
+        <div className="py-0 bg-primary px-4">
+          <p className="text-2xl text-accent-1 lg:text-4xl font-bold">
+                Current Batch
+          </p>
+          <div className="flex flex-row justify-between lg:px-0 xs:px-0 py-2">
+            <div className="text-white text-left">
+              <p className="text-sm lg:text-lg">STARTED</p>
+              <p className="text-lg font-bold lg:text-xl">
+                <span>Oct 21</span>
+                <span className="text-sm px-2">(21 days ago)</span>
+              </p>
+            </div>
+            <div className="text-white text-center">
+              <p className="text-sm lg:text-lg">RECEIPTS</p>
+              <p className="text-lg font-bold lg:text-xl">60</p>
+            </div>
+            <div className="text-white text-center">
+              <p className="text-sm lg:text-lg">REFUND</p>
+              <p className="text-lg font-bold lg:text-xl">160.00€</p>
+            </div>
+          </div>
+          
+          
+          
+            <div className="md:w-full lg:w-3/4 mx-auto py-8">
+              <button className="bg-accent-2 w-full text-white px-full py-2 rounded-full font-bold border border-accent-2">
+                <span className="px-2"><FontAwesomeIcon icon={faReceipt} /></span>  
+                <span className="px-2">Add receipt</span>
+              </button>
+            </div>
+            <div className="md:w-full lg:w-3/4 mx-auto py-0">
+              <button className="bg-primary w-full text-white px-full py-2 rounded-full font-bold border border-white">
+                <span className="px-2"><FontAwesomeIcon icon={faFolderOpen} /></span>  
+                <span className="px-2">Manage receipts</span>
+              </button>
+            </div>
+  
         </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+      </div>
     </div>
   )
 }

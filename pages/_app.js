@@ -1,5 +1,6 @@
+import '../styles/index.css'
+
 import Head from 'next/head'
-import '../styles/globals.css'
 
 export default function MyApp({ Component, pageProps }) {
   return (
@@ -35,3 +36,4 @@ export default function MyApp({ Component, pageProps }) {
     </>
   )
 }
+
