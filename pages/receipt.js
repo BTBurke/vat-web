@@ -6,10 +6,13 @@ import Nav from '../components/nav';
 import styles from '../styles/receipt.module.scss';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { forEachObjIndexed, set } from 'ramda';
+
 
 export default function ReceiptPage() {
+    // data structure for edits, if property exists here, it has been clicked to edit
     const [editing, setEditing] = useState(null);
+    
+    // controls focus when multiple items are edited
     const [ref, setRef] = useState(null);
     useEffect(() => {
         if (ref !== null) {
@@ -65,8 +68,8 @@ function Field(props) {
 
     const { field, label, value, editing, setEditing, setRef } = props;
     
+    // adds property to the editing data then controls focus through ref
     function handleDivClick() {
-        console.log('got click');
         if (!editing || editing[field] === undefined) {
          setEditing(Object.assign({}, editing, {[`${field}`]: value}));
         }
@@ -74,6 +77,7 @@ function Field(props) {
     }
 
 
+    // input updates state on change, final values of edited items are in state
     return (
         <div className={styles[field]} onClick={() => handleDivClick()}>
             <div className="text-xs text-accent-1 font-bold">{label}</div>
