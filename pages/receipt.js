@@ -26,8 +26,8 @@ export default function ReceiptPage() {
         date: '09/27/2020',
         id: '1010500205581',
         tax_id: 'EE100589638',
-        total: '94.74E',
-        vat: '15.79E',
+        total: '94.74',
+        vat: '15.79',
     }
     return (
         <div className="">
