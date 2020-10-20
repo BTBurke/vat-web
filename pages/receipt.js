@@ -19,7 +19,7 @@ export default function ReceiptPage() {
     
     // set up hierarcy of intent, one of delete, review, or other
     // review will save changes and progress to the next unreviewed receipt
-    // expects query like /receipt/[id]?intent=review&review=id1,id2,id3
+    // expects query like /receipt/[id0]?intent=review&review=id1,id2,id3
     const handleIntent = (localIntent) => {
         return function() {
             if (localIntent === 'delete') {
@@ -52,13 +52,16 @@ export default function ReceiptPage() {
         total: '94.74',
         vat: '15.79',
     }
+    // TODO: it should get a dynamically-generated responsive image size that fits in the viewport
+    // like https://images.vatinator.com/receipt/id?height=714
+    // then get rid of all of the overflow handling
     return (
         <div className="">
             <div className="flex flex-col lg:container lg:mx-auto max-h-screen">
                 <div className="flex-shrink px-8 py-4 mx-auto overflow-y-scroll overflow-x-scroll object-contain max-h-2/3vh">
                         <TransformWrapper options={{limitToWrapper: true}} reset={{disabled: true}}>
                             <TransformComponent>
-                                <img className="h-full object-fill" src="/test.jpg" alt="test" />
+                                <img className="h-full object-fill" src="/test2.jpg" alt="test" />
                             </TransformComponent>
                         </TransformWrapper>
                 </div>
