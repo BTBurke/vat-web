@@ -11,6 +11,12 @@ img {
   display: block;
 }
 
+.table td.fit, 
+.table th.fit {
+    white-space: nowrap;
+    width: 1%;
+}
+
 
 /* Start purging... */
 @tailwind components;

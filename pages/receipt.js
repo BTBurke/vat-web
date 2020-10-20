@@ -4,13 +4,36 @@ import { useState, useEffect } from 'react';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import Nav from '../components/nav';
 import styles from '../styles/receipt.module.scss';
-import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp, faTrash, faSave } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useRouter } from 'next/router';
 
 
 export default function ReceiptPage() {
     // data structure for edits, if property exists here, it has been clicked to edit
     const [editing, setEditing] = useState(null);
+
+    // router to get intent from query
+    const router = useRouter();
+    const intent = router.query.intent;
+    
+    // set up hierarcy of intent, one of delete, review, or other
+    // review will save changes and progress to the next unreviewed receipt
+    // expects query like /receipt/[id]?intent=review&review=id1,id2,id3
+    const handleIntent = (localIntent) => {
+        return function() {
+            if (localIntent === 'delete') {
+                // do delete stuff
+                console.log('would delete');
+            } else if (intent === 'review') {
+                // do review stuff, save current then push to next in list
+                console.log('would go to next in list');
+            } else {
+                // do save then return to home
+                console.log('would save current, look for diff');
+            }
+        }
+    };
     
     // controls focus when multiple items are edited
     const [ref, setRef] = useState(null);
@@ -49,10 +72,22 @@ export default function ReceiptPage() {
                             <Field field="vat" label="VAT" value={rcpt.vat} editing={editing} setEditing={setEditing} setRef={setRef} />
 
                             <div className={styles.btn}>
-                                <button className="bg-accent-2 w-full text-white px-full py-2 rounded-full font-bold border border-accent-2">
-                                    <span className="px-2"><FontAwesomeIcon icon={faThumbsUp} /></span>  
-                                    <span className="px-2">Everything looks good</span>
-                                </button>
+                                {editing ?
+                                    <button onClick={handleIntent('save')} className="bg-accent-2 w-full text-white px-full py-2 rounded-full font-bold border border-accent-2">
+                                        <span className="px-2"><FontAwesomeIcon icon={faSave} /></span>  
+                                        <span className="px-2">Save changes</span>
+                                    </button>
+                                : intent === 'delete' ?
+                                    <button onClick={handleIntent('delete')} className="bg-red-700 w-full text-white px-full py-2 rounded-full font-bold border border-red-700">
+                                        <span className="px-2"><FontAwesomeIcon icon={faTrash} /></span>  
+                                        <span className="px-2">Permanently delete receipt</span>
+                                    </button>
+                                :
+                                    <button onClick={handleIntent('save')} className="bg-accent-2 w-full text-white px-full py-2 rounded-full font-bold border border-accent-2">
+                                        <span className="px-2"><FontAwesomeIcon icon={faThumbsUp} /></span>  
+                                        <span className="px-2">Everything looks good</span>
+                                    </button>    
+                                }                               
                                 <div className="text-xs text-center text-white">or click on any value to edit</div>
                             </div>
                     </div>
