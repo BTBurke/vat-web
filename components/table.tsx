@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Receipt, {isWarning} from '../models/receipt';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV, faEye, faEdit, faTrash, faExclamationTriangle, faAngleLeft, faAngleRight, faAngleDoubleLeft, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
@@ -68,8 +68,17 @@ interface RowProps extends Receipt {
 
 function Row(props: RowProps): JSX.Element {
     const [open, setOpen] = useState(false);
-    // TODO: add useEffect to set up a document click handler to detect clicks outside
-    // dropdown, something like https://www.blustemy.io/detecting-a-click-outside-an-element-in-javascript/
+    
+    // adds a window handler to detect clicks outside the dropdown to close
+    useEffect(() => {
+        const handleWindowClick = () => setOpen(false)
+        if(open) {
+          window.addEventListener('click', handleWindowClick);
+        } else {
+          window.removeEventListener('click', handleWindowClick)
+        }
+        return () => window.removeEventListener('click', handleWindowClick);
+      }, [open, setOpen]);
 
     const { vendor_name, date, total, vat, isWarning, needsReview } = props;
     return (
