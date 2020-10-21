@@ -1,22 +1,41 @@
 import React, { useState } from 'react';
 import Nav from '../components/nav';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faReceipt, faEllipsisV, faEye, faExclamationTriangle, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faReceipt, faFilePdf } from '@fortawesome/free-solid-svg-icons';
+import ReceiptTable from '../components/table';
+import { isWarning , isVerified } from '../models/receipt';
+import { filter } from 'ramda';
 
 export default function Batch() {
     const testData = [
-        {vendor: "Bauhof Group AS", date: "09/27/20", total: 1300,  vat: 500},
-        {vendor: "test1", date: "09/27", total: 1300,  vat: 500},
-        {vendor: "test1", date: "09/27/20", total: 1300,  vat: 500},
-        {vendor: "test1", date: "09/27/20", total: 1300,  vat: 500},
-        {vendor: "test1", date: "09/27/20", total: 1300,  vat: 500},
-        {vendor: "test1", date: "09/27/20", total: 1300,  vat: 500},
-        {vendor: "test1", date: "09/27/20", total: 1300,  vat: 500},
-        {vendor: "test1", date: "09/27/20", total: 1300,  vat: 500},
-        {vendor: "test1", date: "09/27/20", total: 1300,  vat: 500},
-        {vendor: "test1", date: "09/27/20", total: 1300,  vat: 500},
-        {vendor: "test1", date: "09/27/20", total: 1300,  vat: 500},
+        {verified: new Date(), id: "1", vendor_name: "Bauhof Group AS 1", date: "09/27", tax_id: "test", receipt_number: "EEtest", total: 1300,  vat: 500},
+        {id: "2", vendor_name: "Bauhof Group AS 2", date: "09/27", total: 1300,  vat: 500},
+        {id: "3", vendor_name: "Bauhof Group AS 3", date: "09/27", total: 1300,  vat: 500},
+        {id: "4", vendor_name: "Bauhof Group AS 4", date: "09/27", total: 1300,  vat: 500},
+        {id: "5", vendor_name: "Bauhof Group AS 5", date: "09/27", total: 1300,  vat: 500},
+        {id: "6", vendor_name: "Bauhof Group AS 6", date: "09/27", total: 1300,  vat: 500},
+        {id: "7", vendor_name: "Bauhof Group AS 7", date: "09/27", total: 1300,  vat: 500},
+        {id: "8", vendor_name: "Bauhof Group AS 8", date: "09/27", total: 1300,  vat: 500},
+        {id: "9", vendor_name: "Bauhof Group AS 9", date: "09/27", total: 1300,  vat: 500},
+        {id: "10", vendor_name: "Bauhof Group AS 10", date: "09/27", total: 1300,  vat: 500},
+        {id: "11", vendor_name: "Bauhof Group AS 11", date: "09/27", total: 1300,  vat: 500},
+        {id: "12", vendor_name: "Bauhof Group AS 12", date: "09/27", total: 1300,  vat: 500},
+        {id: "13", vendor_name: "Bauhof Group AS 13", date: "09/27", total: 1300,  vat: 500},
+        {id: "14", vendor_name: "Bauhof Group AS 14", date: "09/27", total: 1300,  vat: 500},
+        {id: "15", vendor_name: "Bauhof Group AS 15", date: "09/27", total: 1300,  vat: 500},
+        {id: "16", vendor_name: "Bauhof Group AS 16", date: "09/27", total: 1300,  vat: 500},
+        {id: "17", vendor_name: "Bauhof Group AS 17", date: "09/27", total: 1300,  vat: 500},
+        {id: "18", vendor_name: "Bauhof Group AS 18", date: "09/27", total: 1300,  vat: 500},
+        {id: "19", vendor_name: "Bauhof Group AS 19", date: "09/27", total: 1300,  vat: 500},
+        {id: "20", vendor_name: "Bauhof Group AS 20", date: "09/27", total: 1300,  vat: 500},
+        {id: "21", vendor_name: "Bauhof Group AS 21", date: "09/27", total: 1300,  vat: 500},
+        {id: "22", vendor_name: "Bauhof Group AS 22", date: "09/27", total: 1300,  vat: 500},
     ]
+    // const testData = [
+    //     {verified: new Date(), id: "1", vendor_name: "Bauhof Group AS 1", date: "09/27", tax_id: "test", receipt_number: "EEtest", total: 1300,  vat: 500},
+    // ]
+
+    const forReview = filter((r) => { return isWarning(r) || !isVerified(r) }, testData);
 
     return (
       <div className="lg:container lg:mx-auto">
@@ -42,67 +61,28 @@ export default function Batch() {
                     <p className="text-lg font-bold lg:text-xl">160.00€</p>
                 </div>
             </div>
-            <div className="md:w-full lg:w-3/4 mx-auto py-8">
-                    <button className="bg-accent-2 w-full text-white px-full py-2 rounded-full font-bold border border-accent-2">
-                    <span className="px-2"><FontAwesomeIcon icon={faReceipt} /></span>  
-                    <span className="px-2">Add receipt</span>
-                    </button>
-            </div>
         </div>
         <div className="px-4">
             <p className="text-2xl text-accent-1 lg:text-4xl font-bold pt-4">
                 Receipts
             </p>
             <div className="pt-2">
-                <table className="xs:table-responsive-sm table table-sm text-sm lg:text-lg text-white">
-                    <thead>
-                        <tr className="bg-secondary">
-                        <th scope="col" className="fit"></th>
-                        <th scope="col">Vendor</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Total</th>
-                        <th scope="col">VAT</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {testData.map((props) => {
-                            return (
-                                <Row {...props} />
-                            );
-                        })}
-                    </tbody>
-                </table>
+                <ReceiptTable receipts={testData} />
             </div>
         </div>
+        <div className="md:w-full lg:w-3/4 mx-auto py-4 px-2">
+                    { forReview.length > 0 ?
+                        <button className="bg-accent-2 w-full text-white px-full py-2 rounded-full font-bold border border-accent-2">
+                            <span className="px-2"><FontAwesomeIcon icon={faReceipt} /></span>  
+                            <span className="px-2">Review {forReview.length.toString()} receipts with issues</span>
+                        </button>
+                    :
+                        <button className="bg-accent-2 w-full text-white px-full py-2 rounded-full font-bold border border-accent-2">
+                            <span className="px-2"><FontAwesomeIcon icon={faFilePdf} /></span>  
+                            <span className="px-2">Close batch and create VAT submission</span>
+                        </button>
+                    }
+        </div>
       </div>
-    );
-}
-
-function Row(props) {
-    const [open, setOpen] = useState(false);
-
-    const { vendor, date, total, vat } = props;
-    return (
-        <tr scope="row">
-            <td className="fit pr-5" onClick={() => setOpen(!open)}>
-                <div className="pr-2 inline-block">
-                    <div className="relative">
-                        <button onClick={() => setOpen(!open)} className="relative z-10 block"><FontAwesomeIcon icon={faEllipsisV}/></button>
-                        {open ? 
-                            <div className="absolute left-0 mt-0 py-1 w-48 z-20 bg-secondary rounded-sm shadow-xl">
-                                <a href="#" className="block px-4 py-2 text-white"><span className="pr-2 text-white"><FontAwesomeIcon icon={faEdit}/></span>View/Edit Receipt</a>
-                                <a href="#" className="block px-4 py-2 text-white"><span className="pr-3 text-red-700"><FontAwesomeIcon icon={faTrash}/></span>Delete Receipt</a>
-                            </div> 
-                        : null}
-                    </div>           
-                </div>
-                <span className="pl-1 text-accent-2"><FontAwesomeIcon icon={faEye}/></span>
-                <span className="pl-1 text-accent-1"><FontAwesomeIcon icon={faExclamationTriangle}/></span>
-            </td>
-            <td>{vendor}</td>
-            <td>{date}</td>
-            <td>{(total/100).toFixed(2)}</td>
-            <td>{(vat/100).toFixed(2)}</td>
-        </tr>
     );
 }
