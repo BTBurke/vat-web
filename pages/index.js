@@ -72,7 +72,7 @@ export default function IndexPage() {
           
             <div {...getRootProps()} className="md:w-full lg:w-3/4 mx-auto my-10 md:py-16 md:px-16 md:min-h-1/2 md:border-dashed md:border-secondary md:border-2 md:rounded-sm">
                    <input {...getInputProps()}></input>
-                   <p className="hidden md:block text-secondary text-center italic pb-2 font-bold">You can drop image files here, or click to select receipt(s)</p>
+                   <p className="hidden md:block text-secondary text-center italic pb-2 font-bold">You can drop image files here or click to select receipt(s)</p>
                   <button onClick={open} className="bg-accent-2 w-full text-white px-full py-2 md:mb-2 rounded-full font-bold border border-accent-2">
                     <span className="px-2"><FontAwesomeIcon icon={faReceipt} /></span>  
                     <span className="px-2">Add receipt</span>
