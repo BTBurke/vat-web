@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Nav from '../components/nav';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faReceipt, faFilePdf } from '@fortawesome/free-solid-svg-icons';
+import { faTasks, faFilePdf } from '@fortawesome/free-solid-svg-icons';
 import ReceiptTable from '../components/table';
 import { isWarning , isVerified } from '../models/receipt';
 import { filter } from 'ramda';
@@ -73,7 +73,7 @@ export default function Batch() {
         <div className="md:w-full lg:w-3/4 mx-auto py-4 px-2">
                     { forReview.length > 0 ?
                         <button className="bg-accent-2 w-full text-white px-full py-2 rounded-full font-bold border border-accent-2">
-                            <span className="px-2"><FontAwesomeIcon icon={faReceipt} /></span>  
+                            <span className="px-2"><FontAwesomeIcon icon={faTasks} /></span>  
                             <span className="px-2">Review {forReview.length.toString()} receipts with issues</span>
                         </button>
                     :
