@@ -1,10 +1,49 @@
+import React, { useCallback, useState }  from 'react';
 import Nav from '../components/nav'
 import { faReceipt, faFolderOpen} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useDropzone } from 'react-dropzone';
+import Loading from '../components/loading';
 
 export default function IndexPage() {
+  const [doing, setDoing] = useState(null); 
+  
+  // TODO: add a application/zip file handler
+  
+  const onDrop = useCallback((acceptedFiles) => {
+    if (acceptedFiles.length > 1) {
+      // create a batchProcess
+      console.log(`total files ${acceptedFiles.length}`);
+    } 
+    acceptedFiles.forEach((file) => {
+      setDoing([`Processing ${file.name}...`]);
+      console.log(file);
+      const reader = new FileReader()
+
+      reader.onabort = () => console.log('file reading was aborted')
+      reader.onerror = () => console.log('file reading has failed')
+      reader.onload = () => {
+      // Do whatever you want with the file contents
+        const binaryStr = reader.result;
+        console.log(`got result ${binaryStr}`);
+      }
+      reader.readAsArrayBuffer(file);
+    })
+
+    
+  }, []);
+
+  const {getRootProps, getInputProps, open, acceptedFiles} = useDropzone({
+    // Disable click and keydown behavior
+    noClick: true,
+    noKeyboard: true,
+    accept: ['image/*'],
+    onDrop,
+  });
+
   return (
     <div>
+      { doing && <Loading msgs={doing} /> }
       <div className="lg:container lg:mx-auto">
         <Nav />
         <div className="py-0 bg-primary px-4">
@@ -31,11 +70,14 @@ export default function IndexPage() {
           
           
           
-            <div className="md:w-full lg:w-3/4 mx-auto py-8">
-              <button className="bg-accent-2 w-full text-white px-full py-2 rounded-full font-bold border border-accent-2">
-                <span className="px-2"><FontAwesomeIcon icon={faReceipt} /></span>  
-                <span className="px-2">Add receipt</span>
-              </button>
+            <div {...getRootProps()} className="md:w-full lg:w-3/4 mx-auto my-10 md:py-16 md:px-16 md:min-h-1/2 md:border-dashed md:border-secondary md:border-2 md:rounded-sm">
+                   <input {...getInputProps()}></input>
+                   <p className="hidden md:block text-secondary text-center italic pb-2 font-bold">You can drop image files here, or click to select receipt(s)</p>
+                  <button onClick={open} className="bg-accent-2 w-full text-white px-full py-2 md:mb-2 rounded-full font-bold border border-accent-2">
+                    <span className="px-2"><FontAwesomeIcon icon={faReceipt} /></span>  
+                    <span className="px-2">Add receipt</span>
+                  </button>
+              
             </div>
             <div className="md:w-full lg:w-3/4 mx-auto py-0">
               <button className="bg-primary w-full text-white px-full py-2 rounded-full font-bold border border-white">

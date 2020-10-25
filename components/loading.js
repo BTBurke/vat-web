@@ -24,7 +24,7 @@ export default function Loading(props) {
                 <div className="m-auto px-2 py-2 bg-secondary w-24 h-24 rounded-lg">
                     <div className={styles.lds}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
                 </div>
-                <div className="text-white text-center w-full">
+                <div className="text-white text-center w-full font-bold">
                     {msg[m]}
                 </div>
             </div>
